@@ -1,0 +1,14 @@
+[project]
+name = "primerl-experiments"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "python-dotenv>=1.1.1",
+    "verifiers>=0.1.4",
+    "openai>=1.40.0",
+    "wordle",
+]
+
+[tool.uv.sources]
+wordle = { url = "https://hub.primeintellect.ai/will/wordle/@latest/wordle-0.1.4-py2.py3-none-any.whl" }

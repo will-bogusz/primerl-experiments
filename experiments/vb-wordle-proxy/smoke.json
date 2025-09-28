@@ -1,0 +1,11 @@
+{
+  "environment": "vb-wordle-proxy",
+  "model": "gpt-4o-mini",
+  "num_examples": 1,
+  "rollouts_per_example": 1,
+  "max_concurrent": 32,
+  "args": { "use_think": true },
+  "api_key_var": "OPENAI_API_KEY",
+  "notes": "Canonical 1-example smoke run for Hub Evals."
+}
+
