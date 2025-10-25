@@ -9,7 +9,7 @@ Intent
 - Make evaluations reproducible without remembering flags.
 - Act as inputs to a future local hub UI (pick config → launch run).
 
-Suggested JSON schema
+Suggested JSON schema (no secrets; `.env` supplies keys)
 {
   "environment": "vb-wordle-proxy",
   "model": "gpt-4o-mini",
@@ -17,12 +17,20 @@ Suggested JSON schema
   "rollouts_per_example": 1,
   "max_concurrent": 32,
   "args": { "use_think": true },
-  "api_key_var": "OPENAI_API_KEY",
+  "notes": "Baseline sanity run"
+}
+
+Secrets
+- Do not store API keys in configs. Use `.env` (gitignored) with `OPENAI_API_KEY`.
+- When we add `make run-config`, it will default to `-k OPENAI_API_KEY` unless overridden.
+
+Optional fields
+{
+  "api_key_var": "OPENAI_API_KEY",           // optional; defaults to OPENAI_API_KEY
   "api_base_url": "https://api.openai.com/v1",
   "max_tokens": 512,
   "temperature": 0.7,
   "sampling_args": { },
-  "notes": "Baseline sanity run"
 }
 
 CLI mapping (vf-eval flags)
@@ -32,7 +40,7 @@ CLI mapping (vf-eval flags)
 - rollouts_per_example → `-r, --rollouts-per-example`
 - max_concurrent → `-c, --max-concurrent`
 - args (env args JSON) → `-a, --env-args`
-- api_key_var → `-k, --api-key-var`
+- api_key_var → `-k, --api-key-var` (defaults to `OPENAI_API_KEY` when omitted)
 - api_base_url → `-b, --api-base-url`
 - max_tokens → `-t, --max-tokens` (or via sampling_args)
 - temperature → `-T, --temperature` (or via sampling_args)

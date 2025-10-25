@@ -19,13 +19,28 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Programmatic eval runner (optional).")
     parser.add_argument("env", help="Environment module name (e.g., vb-wordle-proxy, wordle)")
     parser.add_argument("-m", "--model", default=os.getenv("OPENAI_MODEL", "gpt-4o-mini"))
-    parser.add_argument("-n", "--num-examples", type=int, default=1)
-    parser.add_argument("-r", "--rollouts-per-example", type=int, default=1)
-    parser.add_argument("-c", "--max-concurrent", type=int, default=32)
+    parser.add_argument("-n", "--num-examples", type=int, default=int(os.getenv("NUM_EXAMPLES", 1)))
+    parser.add_argument(
+        "-r",
+        "--rollouts-per-example",
+        type=int,
+        default=int(os.getenv("ROLLOUTS_PER_EXAMPLE", 1)),
+    )
+    parser.add_argument("-c", "--max-concurrent", type=int, default=int(os.getenv("MAX_CONCURRENT", 32)))
     parser.add_argument("-a", "--env-args", default="{}", help="JSON for load_environment kwargs")
     parser.add_argument("-S", "--sampling-args", default=None, help="JSON for sampling args")
-    parser.add_argument("-t", "--max-tokens", type=int, default=None)
-    parser.add_argument("-T", "--temperature", type=float, default=None)
+    parser.add_argument(
+        "-t",
+        "--max-tokens",
+        type=int,
+        default=int(os.getenv("MAX_TOKENS")) if os.getenv("MAX_TOKENS") else None,
+    )
+    parser.add_argument(
+        "-T",
+        "--temperature",
+        type=float,
+        default=float(os.getenv("TEMPERATURE")) if os.getenv("TEMPERATURE") else None,
+    )
     return parser.parse_args()
 
 

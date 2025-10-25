@@ -14,8 +14,12 @@ SMOKE_ENV ?= vb-wordle-proxy
 SMOKE_NUM ?= 1
 SMOKE_R ?= 1
 smoke:
-	set -a; source .env; set +a; \
-	uv run vf-eval $(SMOKE_ENV) -m $(OPENAI_MODEL) -n $(SMOKE_NUM) -r $(SMOKE_R) -s -k OPENAI_API_KEY
+	set -a; [ -f .env ] && source .env; set +a; \
+	uv run vf-eval $(SMOKE_ENV) \
+	  -m $${OPENAI_MODEL:-$(OPENAI_MODEL)} \
+	  -n $${NUM_EXAMPLES:-$(SMOKE_NUM)} \
+	  -r $${ROLLOUTS_PER_EXAMPLE:-$(SMOKE_R)} \
+	  -s -k OPENAI_API_KEY
 
 # Push an environment in environments/<env_id with hyphens converted to underscores>
 # Requires: ENV_ID

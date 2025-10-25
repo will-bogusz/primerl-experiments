@@ -54,10 +54,11 @@ Current repo note: some folders may not exist yet; treat this file as the contra
 Always run commands with `uv run` to ensure the correct virtual environment.
 
 ## **Configuration**
-- `.env` (gitignored) holds secrets and defaults consumed by CLI and runners.
-  - Minimal keys: `OPENAI_API_KEY` (required), optional `OPENAI_MODEL`.
-  - Additional keys like `NUM_EXAMPLES`/`ROLLOUTS_PER_EXAMPLE` are only used by the optional custom runner (`main.py`).
-- `.env.example` documents these keys and clarifies usage.
+- `.env` (gitignored) holds secrets and optional defaults.
+  - Minimal keys: `OPENAI_API_KEY` (required).
+  - Optional defaults: `OPENAI_MODEL`, `NUM_EXAMPLES`, `ROLLOUTS_PER_EXAMPLE`.
+    - Used by `make smoke` as overrides (model, -n, -r) and by the optional custom runner (`main.py`) as defaults.
+- `.env.example` documents these keys; do not store secrets in JSON configs.
 
 ## **Baselines**
 - For smoke/baseline comparisons we often use `will/wordle` or the local `vb-wordle-proxy` wrapper.
